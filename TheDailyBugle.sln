@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDailyBugle.iOS", "TheDai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDailyBugle.UWP", "TheDailyBugle\TheDailyBugle.UWP\TheDailyBugle.UWP.csproj", "{462C6CF9-BA58-4F3A-94E7-05FAEED99ED5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDailyBugle", "TheDailyBugle\TheDailyBugle\TheDailyBugle.csproj", "{CD9CA55E-D26E-4B8E-BDA7-5B42C765AC4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheDailyBugle", "TheDailyBugle\TheDailyBugle\TheDailyBugle.csproj", "{CD9CA55E-D26E-4B8E-BDA7-5B42C765AC4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

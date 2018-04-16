@@ -52,6 +52,7 @@ namespace TheDailyBugle.Services
             for (int i = 0; i < 5; i++)
             {
                 Comic comic;
+                
                 do
                 {
                     var comicDate = now.AddDays(daysToAdd);

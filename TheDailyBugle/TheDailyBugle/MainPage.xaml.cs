@@ -18,7 +18,13 @@ namespace TheDailyBugle
 			InitializeComponent();
 
             _comicParserService = new ComicParserService();
-            _comicParserService.GetComics(0, 0);
+            var titles = _comicParserService.GetComicTitles();
+            var comics = _comicParserService.GetComics(0, 0);
+
+            foreach (var comic in comics)
+            {
+
+            }
         }
-	}
+    }
 }
