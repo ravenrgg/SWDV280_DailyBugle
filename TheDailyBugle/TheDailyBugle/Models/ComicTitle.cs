@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SQLite.Net.Attributes;
 
 namespace TheDailyBugle.Models
 {
     public class ComicTitle
     {
+        [PrimaryKey, AutoIncrement]
         public int ComicTitleId { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
