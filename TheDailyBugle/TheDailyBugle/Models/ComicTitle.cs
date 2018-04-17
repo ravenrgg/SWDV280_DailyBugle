@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TheDailyBugle.Models
 {
-    public class ComicTitle
+    public class ComicTitle : Destination
     {
         public int ComicTitleId { get; set; }
         public string Name { get; set; }
@@ -18,7 +19,7 @@ namespace TheDailyBugle.Models
             throw new NotImplementedException();
         }
 
-        public static int Insert()
+        public override int Insert(IDbConnection connection)
         {
             throw new NotImplementedException();
         }
