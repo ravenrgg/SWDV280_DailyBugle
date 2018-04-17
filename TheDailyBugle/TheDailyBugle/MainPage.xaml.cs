@@ -9,6 +9,7 @@ using TheDailyBugle.Models;
 using System.Data;
 using Dapper;
 using System.Data.SqlClient;
+using TheDailyBugle.Database;
 
 namespace TheDailyBugle
 {
@@ -29,17 +30,13 @@ namespace TheDailyBugle
 
             var titles = _comicParserService.GetComicTitles();
 
-            // Insert titles into database
-            using (IDbConnection target = new SqlConnection("Server=;Database=;Trusted_Connection=True;"))
+            ComicTitleDatabase database = new ComicTitleDatabase();
+            foreach (var title in titles)
             {
-                target.Open();
-
-                foreach (var title in titles)
-                {
-                    title.Insert(target);
-                }
+                database.AddComicTitle(title);
             }
 
+            var comicTitle = database.GetComicTitle(0);
         }
     }
 }

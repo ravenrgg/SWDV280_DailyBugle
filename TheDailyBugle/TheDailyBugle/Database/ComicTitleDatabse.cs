@@ -20,13 +20,21 @@ namespace TheDailyBugle.Database
 
         public IEnumerable<ComicTitle> GetComicTitle()
         {
-            return (from t in _connection.Table<ComicTitle>()
-                    select t).ToList();
+            return _connection.Table<ComicTitle>()
+                .ToList();
         }
 
         public ComicTitle GetComicTitle(int id)
         {
-            return _connection.Table<ComicTitle>().FirstOrDefault(t => t.ComicTitleId == id);
+            return _connection.Table<ComicTitle>()
+                .FirstOrDefault(t => t.ComicTitleId == id);
+        }
+
+        public List<ComicTitle> GetSubscribedComicTitles()
+        {
+            return _connection.Table<ComicTitle>()
+                .Where(t => t.IsSubscribed)
+                .ToList();
         }
 
         public void DeleteComicTitle(int id)
@@ -34,14 +42,13 @@ namespace TheDailyBugle.Database
             _connection.Delete<ComicTitle>(id);
         }
 
-        public void AddComicTitle(string name, string url, string iconUrl, bool hasSubscribers)
+        public void AddComicTitle(ComicTitle comicTitle)
         {
             var newThought = new ComicTitle
             {
-                Name = name,
-                Url = url,
-                IconUrl = iconUrl,
-                HasSubscribers = hasSubscribers
+                Name = comicTitle.Name,
+                Url = comicTitle.Url,
+                IconUrl = comicTitle.IconUrl
             };
 
             _connection.Insert(newThought);

@@ -9,12 +9,13 @@ namespace TheDailyBugle.Models
 {
     public class ComicTitle : Destination
     {
+
         [PrimaryKey, AutoIncrement]
         public int ComicTitleId { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public string IconUrl { get; set; }
-        public bool HasSubscribers { get; set; }
+        public bool IsSubscribed { get; set; } = true;
 
         public static string Select()
         {
