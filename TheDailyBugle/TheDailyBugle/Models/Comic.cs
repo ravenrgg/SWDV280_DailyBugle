@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TheDailyBugle.Models
 {
-    public class Comic
+    public class Comic : Destination
     {
         public int ComicId { get; set; }
         public int ComicTitleId { get; set; }
@@ -14,12 +16,15 @@ namespace TheDailyBugle.Models
 
         public static string Select()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public static int Insert()
+        public override int Insert(IDbConnection connection)
         {
-            throw new NotImplementedException();
+            var sql = "";
+            return connection.Query<int>(sql, new
+            {
+            }).Single();
         }
     }
 }

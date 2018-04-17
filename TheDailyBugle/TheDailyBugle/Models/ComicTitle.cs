@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using SQLite.Net.Attributes;
 
 namespace TheDailyBugle.Models
 {
-    public class ComicTitle
+    public class ComicTitle : Destination
     {
         [PrimaryKey, AutoIncrement]
         public int ComicTitleId { get; set; }
@@ -20,7 +21,7 @@ namespace TheDailyBugle.Models
             throw new NotImplementedException();
         }
 
-        public static int Insert()
+        public override int Insert(IDbConnection connection)
         {
             throw new NotImplementedException();
         }

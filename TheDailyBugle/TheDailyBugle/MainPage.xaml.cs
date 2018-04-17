@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using TheDailyBugle.Services;
+using Xamarin.Forms;
 using TheDailyBugle.Models;
-using TheDailyBugle.Database;
-using SQLite.Net;
+using System.Data;
+using Dapper;
+using System.Data.SqlClient;
 
 namespace TheDailyBugle
 {
@@ -19,23 +20,26 @@ namespace TheDailyBugle
 			InitializeComponent();
 
             _comicParserService = new ComicParserService();
-            var titles = _comicParserService.GetComicTitles();
             var comics = _comicParserService.GetComics(0, 0);
-
-            var _comicTitleDatabase = new ComicTitleDatabase();
-
-            //_comicTitleDatabase.AddComicTitle("test Name", "http://test.test.com", "http://test.test.com/image", false);
-            //var foo = _comicTitleDatabase.GetComicTitle(0);
 
             foreach (var comic in comics)
             {
 
             }
 
-            foreach (var title in titles)
-            {
+            var titles = _comicParserService.GetComicTitles();
 
+            // Insert titles into database
+            using (IDbConnection target = new SqlConnection("Server=;Database=;Trusted_Connection=True;"))
+            {
+                target.Open();
+
+                foreach (var title in titles)
+                {
+                    title.Insert(target);
+                }
             }
+
         }
     }
 }
