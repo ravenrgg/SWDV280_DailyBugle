@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using SQLite.Net.Attributes;
 
 namespace TheDailyBugle.Models
@@ -19,12 +20,20 @@ namespace TheDailyBugle.Models
 
         public static string Select()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public override int Insert(IDbConnection connection)
         {
-            throw new NotImplementedException();
+            var sql = "";
+            return connection.Query<int>(sql, new
+            {
+                name = Name,
+                url = Url,
+                iconUrl = IconUrl,
+                IsSubscribed = false
+            }).Single();
         }
+    }
     }
 }

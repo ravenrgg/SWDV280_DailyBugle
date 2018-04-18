@@ -29,14 +29,33 @@ namespace TheDailyBugle
             }
 
             var titles = _comicParserService.GetComicTitles();
+            
 
-            ComicTitleDatabase database = new ComicTitleDatabase();
-            foreach (var title in titles)
+            using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID={dbadmin};Password={1231!#ASDF!a};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
-                database.AddComicTitle(title);
+                // Insert titles into database
+                foreach (var title in titles)
+                {
+                    title.Insert(target);
+                }
             }
 
-            var comicTitle = database.GetComicTitle(0);
+            // Use this code to grab titles on other pages
+            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID={dbadmin};Password={1231!#ASDF!a};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            {
+                // Execute select query returns all items in table
+                var comicTitles = source.Query<ComicTitle>
+                    (ComicTitle.Select())
+                    .ToList();
+
+                // Get subscribed comic titles
+                var subscribedTitles = comicTitles
+                    .Where(c => c.IsSubscribed);
+
+                // Get individual comic
+                var comic = comicTitles
+                    .FirstOrDefault(c => c.Name.Equals("Name of comic.."));
+            }
         }
     }
 }

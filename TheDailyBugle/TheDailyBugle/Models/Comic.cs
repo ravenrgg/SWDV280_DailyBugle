@@ -24,6 +24,9 @@ namespace TheDailyBugle.Models
             var sql = "";
             return connection.Query<int>(sql, new
             {
+                comicTitleId = ComicTitleId,
+                imageUrl = ImageUrl,
+                publishDate = PublishDate
             }).Single();
         }
     }
