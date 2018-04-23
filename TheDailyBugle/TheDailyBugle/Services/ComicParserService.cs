@@ -43,7 +43,7 @@ namespace TheDailyBugle.Services
             return titles;
         }
 
-        public List<Comic> GetComics(int id, int count)
+        public List<Comic> GetComics(string comicUrl, int count)
         {
             var now = DateTime.Now;
 
@@ -52,11 +52,12 @@ namespace TheDailyBugle.Services
             for (int i = 0; i < 5; i++)
             {
                 Comic comic;
-                
+
+                var url = comicUrl.Remove(0, 1).Split('/')[0];
                 do
                 {
                     var comicDate = now.AddDays(daysToAdd);
-                    comic = GetComic($"{"http://www.gocomics.com/"}/calvinandhobbes", comicDate);
+                    comic = GetComic($"{"http://www.gocomics.com/"}/{url}", comicDate);
                     daysToAdd--;
 
                 } while (comic == null);

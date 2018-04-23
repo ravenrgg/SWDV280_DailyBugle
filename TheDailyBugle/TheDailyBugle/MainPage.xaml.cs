@@ -20,24 +20,24 @@ namespace TheDailyBugle
             InitializeComponent();
 
             _comicParserService = new ComicParserService();
-            var comics = _comicParserService.GetComics(0, 0);
+            //var comics = _comicParserService.GetComics(0, 0);
 
-            foreach (var comic in comics)
-            {
+            //foreach (var comic in comics)
+            //{
 
-            }
+            //}
 
-            var titles = _comicParserService.GetComicTitles();
+            //var titles = _comicParserService.GetComicTitles();
 
 
-            using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
-            {
-                //Insert titles into database
-                foreach (var title in titles)
-                {
-                    //title.Insert(target);
-                }
-            }
+            //using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            //{
+            //    //Insert titles into database
+            //    foreach (var title in titles)
+            //    {
+            //        //title.Insert(target);
+            //    }
+            //}
 
             // Use this code to grab titles on other pages
             using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
@@ -47,6 +47,8 @@ namespace TheDailyBugle
                 var comicTitles = source.Query<ComicTitle>
                     (ComicTitle.Select())
                     .ToList();
+
+                var comics = _comicParserService.GetComics(comicTitles[8].Url, 5);
 
                 // Get subscribed comic titles
                 var subscribedTitles = comicTitles

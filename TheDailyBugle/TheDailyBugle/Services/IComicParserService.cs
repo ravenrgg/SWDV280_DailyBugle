@@ -9,6 +9,6 @@ namespace TheDailyBugle.Services
     public interface IComicParserService
     {
         List<ComicTitle> GetComicTitles();
-        List<Comic> GetComics(int id, int count);
+        List<Comic> GetComics(string url, int count);
     }
 }
