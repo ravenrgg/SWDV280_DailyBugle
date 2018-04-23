@@ -9,7 +9,6 @@ using TheDailyBugle.Models;
 using System.Data;
 using Dapper;
 using System.Data.SqlClient;
-using TheDailyBugle.Database;
 
 namespace TheDailyBugle
 {

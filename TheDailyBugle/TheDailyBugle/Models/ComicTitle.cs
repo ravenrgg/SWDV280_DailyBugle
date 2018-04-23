@@ -4,14 +4,12 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using SQLite.Net.Attributes;
 
 namespace TheDailyBugle.Models
 {
     public class ComicTitle : Destination
     {
 
-        [PrimaryKey, AutoIncrement]
         public int ComicTitleId { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
