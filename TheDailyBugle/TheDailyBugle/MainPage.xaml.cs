@@ -30,13 +30,13 @@ namespace TheDailyBugle
             var titles = _comicParserService.GetComicTitles();
 
 
-            using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID={dbadmin};Password={1231!#ASDF!a};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
-                // Insert titles into database
-                //foreach (var title in titles)
-                //{
-                //    title.Insert(target);
-                //}
+                //Insert titles into database
+                foreach (var title in titles)
+                {
+                    //title.Insert(target);
+                }
             }
 
             // Use this code to grab titles on other pages

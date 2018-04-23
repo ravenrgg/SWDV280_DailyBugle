@@ -34,10 +34,11 @@ namespace TheDailyBugle.Models
                        ,[IconUrl]
                        ,[IsSubscribed])
                         VALUES
-                       (@name = Name,
-                       ,@url = Url,
-                       ,@iconUrl = IconUrl,
-                       ,@isSubscribed = IsSubscribed)";
+                       (@name
+                       ,@url
+                       ,@iconUrl
+                       ,@isSubscribed);
+                    SELECT CAST(SCOPE_IDENTITY() as int)";
             return connection.Query<int>(sql, new
             {
                 name = Name,
