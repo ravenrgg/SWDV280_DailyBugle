@@ -14,7 +14,6 @@ namespace TheDailyBugle.Models
         public string Name { get; set; }
         public string Url { get; set; }
         public string IconUrl { get; set; }
-        public bool IsSubscribed { get; set; } = true;
 
         public static string Select()
         {
@@ -22,7 +21,6 @@ namespace TheDailyBugle.Models
                   ,[Name]
                   ,[Url]
                   ,[IconUrl]
-                  ,[IsSubscribed]
                     FROM[dbo].[ComicTitles]";
         }
 
@@ -36,15 +34,13 @@ namespace TheDailyBugle.Models
                         VALUES
                        (@name
                        ,@url
-                       ,@iconUrl
-                       ,@isSubscribed);
+                       ,@iconUrl);
                     SELECT CAST(SCOPE_IDENTITY() as int)";
             return connection.Query<int>(sql, new
             {
                 name = Name,
                 url = Url,
-                iconUrl = IconUrl,
-                isSubscribed = IsSubscribed
+                iconUrl = IconUrl
             }).Single();
         }
     }
