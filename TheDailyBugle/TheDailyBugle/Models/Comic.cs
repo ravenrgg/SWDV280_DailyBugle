@@ -16,12 +16,24 @@ namespace TheDailyBugle.Models
 
         public static string Select()
         {
-            return null;
+            return @"SELECT [ComicId]
+                   ,[ComicTitleId]
+                   ,[imageUrl]
+                   ,[publishDate]
+                   FROM [dbo].[Comics]";
         }
 
         public override int Insert(IDbConnection connection)
         {
-            var sql = "";
+            var sql = @"INSERT INTO [dbo].[ComicId]
+                       ([ComicTitleId]
+                        ,[imageUrl]
+                        ,[publishDate])
+                        VALUES
+                       (@comicTitleId
+                       ,@imageUrl
+                       ,@publishDate);
+                    SELECT CAST(SCOPE_IDENTITY() as int)";
             return connection.Query<int>(sql, new
             {
                 comicTitleId = ComicTitleId,
