@@ -18,20 +18,33 @@ namespace TheDailyBugle.Models
 
         public static string Select()
         {
-            return "";
+            return @"SELECT [ComicTitleId]
+                  ,[Name]
+                  ,[Url]
+                  ,[IconUrl]
+                  ,[IsSubscribed]
+                    FROM[dbo].[ComicTitles]";
         }
 
         public override int Insert(IDbConnection connection)
         {
-            var sql = "";
+            var sql = @"INSERT INTO [dbo].[ComicTitles]
+                       ([Name]
+                       ,[Url]
+                       ,[IconUrl]
+                       ,[IsSubscribed])
+                        VALUES
+                       (@name = Name,
+                       ,@url = Url,
+                       ,@iconUrl = IconUrl,
+                       ,@isSubscribed = IsSubscribed)";
             return connection.Query<int>(sql, new
             {
                 name = Name,
                 url = Url,
                 iconUrl = IconUrl,
-                IsSubscribed = false
+                isSubscribed = IsSubscribed
             }).Single();
         }
-    }
     }
 }
