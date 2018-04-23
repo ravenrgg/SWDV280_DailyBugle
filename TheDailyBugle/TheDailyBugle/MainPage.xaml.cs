@@ -15,9 +15,29 @@ namespace TheDailyBugle
     public partial class MainPage : ContentPage
     {
         private readonly IComicParserService _comicParserService;
+
         public MainPage()
         {
             InitializeComponent();
+
+            List<Subscription> subscriptions; // Holds subscriptions for current user
+
+            // If user exists, get subscriptions, otherwise create user
+            if (Application.Current.Properties.ContainsKey("userId"))
+            {
+                var id = (int)Application.Current.Properties["userId"];
+                subscriptions = GetUserSubscriptions(id);
+            }
+            else
+            {
+                // Create user id
+                var email = "";
+
+                ///TODO: Get email from popup textbox...
+            
+                var user = CreateUser(email);
+                Application.Current.Properties["userId"] = user.UserId;
+            }
 
             _comicParserService = new ComicParserService();
             //var comics = _comicParserService.GetComics(0, 0);
@@ -50,13 +70,39 @@ namespace TheDailyBugle
 
                 var comics = _comicParserService.GetComics(comicTitles[8].Url, 5);
 
-                // Get subscribed comic titles
-                var subscribedTitles = comicTitles
-                    .Where(c => c.IsSubscribed);
-
                 // Get individual comic
                 var comic = comicTitles
                     .FirstOrDefault(c => c.Name.Equals("Name of comic.."));
+            }
+        }
+
+        private List<Subscription> GetUserSubscriptions(int userId)
+        {
+            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            {
+                source.Open();
+                var subscriptions = source.Query<Subscription>(
+                    Subscription.Select())
+                    .Where(s => s.UserId.Equals(userId))
+                    .ToList();
+
+                return subscriptions;
+            }
+        }
+
+        private User CreateUser(string email)
+        {
+            using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            {
+                var user = new User
+                {
+                    Email = email
+                };
+
+                target.Open();
+                user.Insert(target);
+
+                return user;
             }
         }
     }
