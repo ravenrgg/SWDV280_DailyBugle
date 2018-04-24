@@ -41,5 +41,17 @@ namespace TheDailyBugle.Models
                 isActive = IsActive
             }).Single();
         }
+
+        public void Update(IDbConnection connection, bool isSubscribed)
+        {
+            var sql = @"UPDATE [dbo].[Subscriptions]
+                      SET [IsActive] = @isActive
+                      WHERE SubscriptionId = @subscriptionId";
+            connection.Query<Subscription>(sql, new
+            {
+                isActive = isSubscribed,
+                subscriptionId = SubscriptionId
+            });
+        }
     }
 }
