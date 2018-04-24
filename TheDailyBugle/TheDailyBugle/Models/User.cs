@@ -14,16 +14,21 @@ namespace TheDailyBugle.Models
 
         public static string Select()
         {
-            return @"";
+            return @"SELECT [UserId]
+                  ,[Email]
+                  FROM [dbo].[Users]";
         }
 
         public override int Insert(IDbConnection connection)
         {
-            var sql = @"
+            var sql = @"INSERT INTO [dbo].[Users]
+                       ([Email])
+                        VALUES
+                       (@email);
                     SELECT CAST(SCOPE_IDENTITY() as int)";
             return connection.Query<int>(sql, new
             {
-
+                email = Email
             }).Single();
         }
     }
