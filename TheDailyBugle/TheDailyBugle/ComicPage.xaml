@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TheDailyBugle.ComicPage">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Image x:Name="backgroundImage" Source="{Binding ComicImage}" AbsoluteLayout.LayoutBounds="0,0,1,1"   AbsoluteLayout.LayoutFlags="All" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill">
+            </Image>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="&lt;"
+                     FontSize="Large"
+                     BackgroundColor="#3f4c6b"
+                     x:Name="previous"
+                     Clicked="OnPrevClicked"/>
+
+                <Button Text="&gt;"
+                     FontSize="Large"
+                     BackgroundColor="#3f4c6b"
+                     x:Name="next"
+                     Clicked="OnNextClicked"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
