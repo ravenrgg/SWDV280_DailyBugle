@@ -15,7 +15,8 @@ namespace TheDailyBugle
 {
     public partial class ComicPage : ContentPage
     {
-        private readonly IComicParserService _comicParserService;
+        private ComicParserService _comicParserService;
+        
 
         public ComicPage()
         {
@@ -27,15 +28,14 @@ namespace TheDailyBugle
 
 
         private int currentComicIndex { get; set; } // holds the index of the current comic that is being displayed
-        private string comics { get; set; } //
+        private Comic wow { get; set; }
+        private Image ComicImage { get; set; }
+        private List<Comic> comics { get; set; }
 
-        public Image ComicImage { get; set; }
 
-
-
-        private void ComicImplementation()
+       private void ComicImplementation()
         {
-            Comic wow = new Comic();
+            wow = new Comic();
             // get comic title id from local storage (this will be set by Andrew)
             //var comicTitleId = (int)Application.Current.Properties["comicTitleId"];
             var comicTitleId = 14;
@@ -53,8 +53,8 @@ namespace TheDailyBugle
             // this will give you a list of 5 comics based on the comic title, where comics[comics.Count - 1] holds the latest comic and comics[0] holds the oldest comic
             // We can play around with the number of comics being pulled from the website.
 
-            ComicParserService _comicParserService = new ComicParserService();
-            var comics = _comicParserService.GetComics(comicTitle.Url, 5);
+            _comicParserService = new ComicParserService();
+            comics = _comicParserService.GetComics(comicTitle.Url, 5);
 
             // initialize currentComicIndex with the last comic listed in comics list
             currentComicIndex = comics.Count - 1;
@@ -66,19 +66,29 @@ namespace TheDailyBugle
                 CachingEnabled = true
             };
 
+            next.IsEnabled = false;
+
         }
 
-        public void OnPrevClicked(object sender, EventArgs args)
+        private void OnPrevClicked(object sender, EventArgs args)
         {
-
             // code for the previous button click event
             if (currentComicIndex > 0)
             {
+
                 currentComicIndex--;
+                next.IsEnabled = true;
+
+                backgroundImage.Source = new UriImageSource()
+                {
+                    Uri = new Uri(comics[currentComicIndex].ImageUrl)
+                };
+
             }
             if (currentComicIndex.Equals(0))
             {
-                previous.BackgroundColor = Color.Default;
+                
+                previous.IsEnabled = false;
             }
         }
 
@@ -89,10 +99,19 @@ namespace TheDailyBugle
             if (currentComicIndex < comics.Count() - 1)
             {
                 currentComicIndex++;
+                next.IsEnabled = true;
+                previous.IsEnabled = true;
+
+                backgroundImage.Source = new UriImageSource()
+                {
+                    Uri = new Uri(comics[currentComicIndex].ImageUrl)
+                };
+
             }
             if (currentComicIndex.Equals(comics.Count() - 1))
             {
-                next.BackgroundColor = Color.Default;
+                next.IsEnabled = false;
+                previous.IsEnabled = true;
             }
         }
     }

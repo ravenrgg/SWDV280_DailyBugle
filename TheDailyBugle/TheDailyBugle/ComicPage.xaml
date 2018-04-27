@@ -20,6 +20,8 @@
                      BackgroundColor="#3f4c6b"
                      x:Name="next"
                      Clicked="OnNextClicked"/>
+                
+                
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
