@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TheDailyBugle.TitlePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="titleLabel" Text="The Daily Bugle"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="StartAndExpand" />
+            <Label x:Name="userLabel" Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="EndAndExpand" />
+            <Button Text="Add Comic"
+                    Clicked="OnAddComicButtonClicked" />
+            <ListView x:Name="unSubbedComicsTitles" ItemTapped="OnUnsubbedComicTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="subbedComicsTitles" ItemTapped="OnSubbedComicTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                <Label Text="{Binding ComicTitleId}" VerticalTextAlignment="Center" FontSize="Medium" />
+                                <Button Text="X" BackgroundColor="Gray" HorizontalOptions="EndAndExpand" CommandParameter="{Binding .}" Clicked="OnDeleteClicked" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

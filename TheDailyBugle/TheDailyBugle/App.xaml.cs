@@ -13,7 +13,7 @@ namespace TheDailyBugle
 		{
 			InitializeComponent();
 
-			MainPage = new TheDailyBugle.ComicPage();
+			MainPage = new TheDailyBugle.TitlePage();
 		}
 
 		protected override void OnStart ()
