@@ -11,14 +11,15 @@ using Dapper;
 using System.Data.SqlClient;
 using Xamarin.Forms.Xaml;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace TheDailyBugle
 {
-	public partial class TitlePage : ContentPage
+    public partial class TitlePage : ContentPage
 	{
 
         private readonly IEnumerable<ComicTitle> comicTitles;
-        private List<ComicTitle> subscribedComicTitles;
+        private ObservableCollection<ComicTitle> subscribedComicTitles;
 
         public TitlePage ()
 		{
@@ -48,10 +49,9 @@ namespace TheDailyBugle
 
                 // get subscribed comics
 
-                subscribedComicTitles = comicTitles
+                subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
                     .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
-                    .Distinct()
-                    .ToList();
+                    .Distinct());
             }
             
             UpdateDataBinding();
@@ -89,7 +89,6 @@ namespace TheDailyBugle
 
                 // remove from subscription list
                 subscribedComicTitles.Remove(comicTitle);
-                UpdateDataBinding();
             }
         }
 
@@ -128,11 +127,6 @@ namespace TheDailyBugle
             Device.BeginInvokeOnMainThread(() => {
                 DisplayAlert("Success", $"{newTitle.Name} has been added!" , "OK");
             });
-            //subscriptions = subscriptions.OrderBy(s => s.)
-
-            //hide unsubbed comics
-            //unhide add comic button
-            //unhide subbed comics?
         }
 
         private void UpdateDataBinding()
