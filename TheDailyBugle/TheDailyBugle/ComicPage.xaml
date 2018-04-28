@@ -4,6 +4,12 @@
              x:Class="TheDailyBugle.ComicPage">
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Button Text="Back"
+                     FontSize="Medium"
+                     BackgroundColor="#3f4c6b"
+                     Clicked="DisplayTitles"/>
+            </StackLayout>
 
             <Image x:Name="backgroundImage" Source="{Binding ComicImage}" AbsoluteLayout.LayoutBounds="0,0,1,1"   AbsoluteLayout.LayoutFlags="All" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill">
             </Image>

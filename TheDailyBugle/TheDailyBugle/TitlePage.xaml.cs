@@ -88,7 +88,7 @@ namespace TheDailyBugle
             }
         }
 
-        void DisplayCommic(object sender, ItemTappedEventArgs e)
+        public void DisplayCommic(object sender, ItemTappedEventArgs e)
         {
             //go to comic page
             var comicTitle = e.Item as ComicTitle;
@@ -119,6 +119,10 @@ namespace TheDailyBugle
 
             subscribedComicTitles.Add(newTitle);
             UpdateDataBinding();
+
+            Device.BeginInvokeOnMainThread(() => {
+                DisplayAlert("Success", $"{newTitle.Name} has been added!" , "OK");
+            });
             //subscriptions = subscriptions.OrderBy(s => s.)
 
             //hide unsubbed comics

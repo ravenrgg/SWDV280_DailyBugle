@@ -4,16 +4,31 @@
              x:Class="TheDailyBugle.TitlePage">
     <ContentPage.Content>
         <StackLayout>
+            
+            
             <Label x:Name="titleLabel" Text="The Daily Bugle"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="StartAndExpand" />
             <Label x:Name="userLabel" Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="EndAndExpand" />
-            <Button x:Name="addComicsButton"  Text="Add Comics"
-                    Clicked="ToggleSettings" />
-            <Button x:Name="hideComicsButton" Text="Done"
-                    Clicked="ToggleSettings" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Add Comic"
+                x:Name="addComicsButton"
+                FontSize="Medium"
+                BackgroundColor="#3f4c6b"
+                Clicked="ToggleSettings"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Button Text="Done"
+                     x:Name="hideComicsButton"
+                     FontSize="Medium"
+                     BackgroundColor="#3f4c6b"
+                     Clicked="ToggleSettings"/>
+            </StackLayout>
+            
             <ListView x:Name="comicsTitles" ItemTapped="OnUnsubbedComicTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>

@@ -98,6 +98,12 @@ namespace TheDailyBugle
                 previous.IsEnabled = true;
             }
         }
+
+        void DisplayTitles(object sender, EventArgs args)
+        {
+            //go to title page
+            Navigation.PushAsync(new TitlePage());
+        }
     }
 
 }
