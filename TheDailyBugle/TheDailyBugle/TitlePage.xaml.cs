@@ -57,7 +57,12 @@ namespace TheDailyBugle
             UpdateDataBinding();
         }
 
-        void ToggleSettings(object sender, EventArgs args)
+        void OnToggleSettings(object sender, EventArgs args)
+        {
+            ToggleSettings();
+        }
+
+        void ToggleSettings()
         {
             comicsTitles.IsVisible = !comicsTitles.IsVisible;
             addComicsButton.IsVisible = !addComicsButton.IsVisible;
@@ -136,6 +141,20 @@ namespace TheDailyBugle
 
             comicsTitles.ItemsSource = comicTitles
                 .Where(ct => !subscribedComicTitles.Any(s => s.ComicTitleId == ct.ComicTitleId));
+        }
+
+        async void OnSettingsClicked(object sender, EventArgs e)
+        {
+            var action = await DisplayActionSheet("Settings", "Cancel", null, "Add Comics", "Random Comic");
+
+            if (action.Equals("Add Comics"))
+            {
+                ToggleSettings();
+            }
+            else if (action.Equals("Random Comic"))
+            {
+
+            }
         }
 
         private List<Subscription> GetUserSubscriptions(int userId)
