@@ -153,7 +153,11 @@ namespace TheDailyBugle
             }
             else if (action.Equals("Random Comic"))
             {
+                Random random = new Random();
+                var randomIndex = random.Next(comicTitles.Count());
 
+                var comicTitle = comicTitles.ToList()[randomIndex];
+                await Navigation.PushAsync(new ComicPage(comicTitle));
             }
         }
 
