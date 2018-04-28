@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-
+using TheDailyBugle.Models;
 using Xamarin.Forms;
 
 namespace TheDailyBugle
@@ -13,15 +16,16 @@ namespace TheDailyBugle
 		{
 			InitializeComponent();
 
-			MainPage = new TheDailyBugle.TitlePage();
+            //MainPage = new TheDailyBugle.TitlePage();
+            MainPage = new NavigationPage(new TitlePage());
 		}
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
-		}
 
-		protected override void OnSleep ()
+        }
+
+        protected override void OnSleep ()
 		{
 			// Handle when your app sleeps
 		}
@@ -30,5 +34,6 @@ namespace TheDailyBugle
 		{
 			// Handle when your app resumes
 		}
-	}
+
+    }
 }

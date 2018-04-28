@@ -15,40 +15,24 @@ namespace TheDailyBugle
 {
     public partial class ComicPage : ContentPage
     {
-        private ComicParserService _comicParserService;
+        private IComicParserService _comicParserService;
         
 
-        public ComicPage()
+        public ComicPage(ComicTitle comicTitle)
         {
             InitializeComponent();
 
-            ComicImplementation();
+            ComicImplementation(comicTitle);
         }
-
-
 
         private int currentComicIndex { get; set; } // holds the index of the current comic that is being displayed
         private Comic wow { get; set; }
         private Image ComicImage { get; set; }
         private List<Comic> comics { get; set; }
 
-
-       private void ComicImplementation()
+       private void ComicImplementation(ComicTitle comicTitle)
         {
             wow = new Comic();
-            // get comic title id from local storage (this will be set by Andrew)
-            //var comicTitleId = (int)Application.Current.Properties["comicTitleId"];
-            var comicTitleId = 14;
-
-            ComicTitle comicTitle = null; // holds comic title that will be display on the page
-
-            // get comic title from database
-            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
-            {
-                comicTitle = source.Query<ComicTitle>
-                    (ComicTitle.Select())
-                    .FirstOrDefault(ct => ct.ComicTitleId.Equals(comicTitleId));
-            }
 
             // this will give you a list of 5 comics based on the comic title, where comics[comics.Count - 1] holds the latest comic and comics[0] holds the oldest comic
             // We can play around with the number of comics being pulled from the website.
