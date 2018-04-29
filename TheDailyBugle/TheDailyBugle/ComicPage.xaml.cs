@@ -29,6 +29,7 @@ namespace TheDailyBugle
         private Comic wow { get; set; }
         private Image ComicImage { get; set; }
         private List<Comic> comics { get; set; }
+        private ComicTitle comicTitle;
 
        private void ComicImplementation(ComicTitle comicTitle)
         {
@@ -52,6 +53,9 @@ namespace TheDailyBugle
 
             next.IsEnabled = false;
 
+            comicTitleLabel.Text = comicTitle.Name;
+
+
         }
 
         private void OnPrevClicked(object sender, EventArgs args)
@@ -68,12 +72,15 @@ namespace TheDailyBugle
                     Uri = new Uri(comics[currentComicIndex].ImageUrl)
                 };
 
+             
             }
             if (currentComicIndex.Equals(0))
             {
                 
                 previous.IsEnabled = false;
+                
             }
+
         }
 
         public void OnNextClicked(object sender, EventArgs args)
@@ -91,12 +98,16 @@ namespace TheDailyBugle
                     Uri = new Uri(comics[currentComicIndex].ImageUrl)
                 };
 
+          
+
             }
             if (currentComicIndex.Equals(comics.Count() - 1))
             {
                 next.IsEnabled = false;
                 previous.IsEnabled = true;
             }
+
+
         }
 
         void DisplayTitles(object sender, EventArgs args)

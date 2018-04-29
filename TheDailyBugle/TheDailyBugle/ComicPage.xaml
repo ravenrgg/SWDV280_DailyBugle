@@ -11,8 +11,15 @@
                      Clicked="DisplayTitles"/>
             </StackLayout>
 
-            <Image x:Name="backgroundImage" Source="{Binding ComicImage}" AbsoluteLayout.LayoutBounds="0,0,1,1"   AbsoluteLayout.LayoutFlags="All" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill">
-            </Image>
+            <Label x:Name="comicTitleLabel"
+                   HorizontalOptions="Center"
+                   FontSize="Large"/>
+            
+            <StackLayout >
+                <Image x:Name="backgroundImage" Source="{Binding ComicImage}" HeightRequest="500" AbsoluteLayout.LayoutBounds="0,0,0,0"   AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit">
+                </Image>
+            </StackLayout>
+            
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Button Text="&lt;"
