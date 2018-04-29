@@ -49,7 +49,7 @@ namespace TheDailyBugle.Services
 
             var comics = new List<Comic>();
             var daysToAdd = 0;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < count; i++)
             {
                 Comic comic;
 

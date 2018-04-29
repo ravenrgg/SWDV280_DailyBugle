@@ -28,17 +28,15 @@ namespace TheDailyBugle
 
        private void ComicImplementation(ComicTitle comicTitle)
         {
+            const int COMIC_COUNT = 5; // holds the number of comics that will be received.
             wow = new Comic();
 
-            // this will give you a list of 5 comics based on the comic title, where comics[comics.Count - 1] holds the latest comic and comics[0] holds the oldest comic
-            // We can play around with the number of comics being pulled from the website.
-
             _comicParserService = new ComicParserService();
-            comics = _comicParserService.GetComics(comicTitle.Url, 5);
+            comics = _comicParserService.GetComics(comicTitle.Url, COMIC_COUNT);
             //dates = _comicParserService.GetComic(comic)
 
-            // initialize currentComicIndex with the last comic listed in comics list
-            currentComicIndex = comics.Count - 1;
+            // initialize currentComicIndex with the first comic listed in comics list
+            currentComicIndex = 0;
 
 
             comicTitleLabel.Text = comicTitle.Name;
@@ -68,10 +66,10 @@ namespace TheDailyBugle
         private void OnPrevClicked(object sender, EventArgs args)
         {
             // code for the previous button click event
-            if (currentComicIndex > 0)
+            if (currentComicIndex < comics.Count() - 1)
             {
 
-                currentComicIndex--;
+                currentComicIndex++;
 
                 next.IsEnabled = true;
 
@@ -79,7 +77,7 @@ namespace TheDailyBugle
 
             }
 
-            if (currentComicIndex.Equals(0))
+            if (currentComicIndex.Equals(comics.Count() - 1))
             {
                 
                 previous.IsEnabled = false;
@@ -92,10 +90,10 @@ namespace TheDailyBugle
         {
 
             // code for next button click event
-            if (currentComicIndex < comics.Count() - 1)
+            if (currentComicIndex > 0)
             {
 
-                currentComicIndex++;
+                currentComicIndex--;
 
                 next.IsEnabled = true;
         
@@ -105,7 +103,7 @@ namespace TheDailyBugle
 
             }
 
-            if (currentComicIndex.Equals(comics.Count() - 1))
+            if (currentComicIndex.Equals(0))
             {
                 next.IsEnabled = false;
 
