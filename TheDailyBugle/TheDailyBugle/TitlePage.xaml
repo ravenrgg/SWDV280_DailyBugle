@@ -9,7 +9,8 @@
                 <Button Text="&#x2630;"
                 x:Name="addComicsButton"
                 FontSize="Large"
-                BackgroundColor="#FFFFFF"
+                BackgroundColor="DarkGray"
+                TextColor="White"
                 Clicked="OnSettingsClicked"/>
 
                 <Label x:Name="titleLabel" Text="The Daily Bugle"
@@ -24,7 +25,8 @@
                 <Button Text="&#x2714; Done"
                      x:Name="hideComicsButton"
                      FontSize="Medium"
-                     BackgroundColor="white"
+                     BackgroundColor="DarkGray"
+                      TextColor="White"
                      Clicked="OnToggleSettings"/>
             </StackLayout>
             
@@ -42,7 +44,7 @@
                             <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
                                 <Image Source="{Binding IconUrl}" />
                                 <Label Text="{Binding Name}" VerticalTextAlignment="End" FontSize="Medium" />
-                                <Button Text="&#x274C;" BackgroundColor="White" HorizontalOptions="End" Command="{Binding ComicTitleId}" CommandParameter="{Binding .}" Clicked="OnDeleteClicked" />
+                                <Button Text="&#x274C;" BackgroundColor="DarkGray" TextColor="White" HorizontalOptions="End" Command="{Binding ComicTitleId}" CommandParameter="{Binding .}" Clicked="OnDeleteClicked" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

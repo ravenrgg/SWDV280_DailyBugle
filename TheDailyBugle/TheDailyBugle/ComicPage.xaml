@@ -3,39 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TheDailyBugle.ComicPage">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                <Button Text="Back"
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                    <Button Text="Back"
                      FontSize="Medium"
-                     BackgroundColor="#3f4c6b"
+                     BackgroundColor="DarkGray"
                      Clicked="DisplayTitles"/>
-            </StackLayout>
+                </StackLayout>
 
-            <Label x:Name="comicTitleLabel"
+                <Label x:Name="comicTitleLabel"
                    HorizontalOptions="Center"
                    FontSize="Large"/>
-            
-            <StackLayout >
-                <Image x:Name="backgroundImage" Source="{Binding ComicImage}" HeightRequest="500" AbsoluteLayout.LayoutBounds="0,0,0,0"   AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit">
-                </Image>
-            </StackLayout>
-            
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="&lt;"
+                <StackLayout >
+                    <Image x:Name="backgroundImage" Source="{Binding ComicImage}" AbsoluteLayout.LayoutBounds="0,0,.5,.5" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit">
+                    </Image>
+                </StackLayout>
+
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="&lt;"
                      FontSize="Large"
-                     BackgroundColor="#3f4c6b"
+                     BackgroundColor="DarkGray"
+                     TextColor="White"
                      x:Name="previous"
                      Clicked="OnPrevClicked"/>
 
-                <Button Text="&gt;"
+                    <Label x:Name="comicDateLabel"
+                   HorizontalOptions="Center"
+                   FontSize="Large"/>
+
+                    <Button Text="&gt;"
                      FontSize="Large"
-                     BackgroundColor="#3f4c6b"
+                     TextColor="White"
+                     BackgroundColor="DarkGray"
                      x:Name="next"
                      Clicked="OnNextClicked"/>
-                
-                
+
+
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>

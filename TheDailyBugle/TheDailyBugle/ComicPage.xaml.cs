@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TheDailyBugle.Services;
 using Xamarin.Forms;
 using TheDailyBugle.Models;
-using System.Data;
 using Dapper;
-using System.Data.SqlClient;
-
 
 namespace TheDailyBugle
 {
@@ -29,7 +24,7 @@ namespace TheDailyBugle
         private Comic wow { get; set; }
         private Image ComicImage { get; set; }
         private List<Comic> comics { get; set; }
-        private ComicTitle comicTitle;
+        private DateTime dt { get; set; }
 
        private void ComicImplementation(ComicTitle comicTitle)
         {
@@ -40,9 +35,22 @@ namespace TheDailyBugle
 
             _comicParserService = new ComicParserService();
             comics = _comicParserService.GetComics(comicTitle.Url, 5);
+            //dates = _comicParserService.GetComic(comic)
 
             // initialize currentComicIndex with the last comic listed in comics list
             currentComicIndex = comics.Count - 1;
+
+
+            comicTitleLabel.Text = comicTitle.Name;
+
+            next.IsEnabled = false;
+
+            dateTimeAndBackgroundImage();
+
+        }
+
+        private void dateTimeAndBackgroundImage ()
+        {
 
             //display comic
             backgroundImage.Source = new UriImageSource()
@@ -51,13 +59,12 @@ namespace TheDailyBugle
                 CachingEnabled = true
             };
 
-            next.IsEnabled = false;
-
-            comicTitleLabel.Text = comicTitle.Name;
-
+            //Gets date time and converts it to a different pattern
+            comicDateLabel.Text = comics[currentComicIndex].PublishDate.ToString("MM/dd");
 
         }
 
+        //Buttons Start
         private void OnPrevClicked(object sender, EventArgs args)
         {
             // code for the previous button click event
@@ -65,15 +72,13 @@ namespace TheDailyBugle
             {
 
                 currentComicIndex--;
+
                 next.IsEnabled = true;
 
-                backgroundImage.Source = new UriImageSource()
-                {
-                    Uri = new Uri(comics[currentComicIndex].ImageUrl)
-                };
+                dateTimeAndBackgroundImage();
 
-             
             }
+
             if (currentComicIndex.Equals(0))
             {
                 
@@ -89,21 +94,21 @@ namespace TheDailyBugle
             // code for next button click event
             if (currentComicIndex < comics.Count() - 1)
             {
+
                 currentComicIndex++;
+
                 next.IsEnabled = true;
+        
                 previous.IsEnabled = true;
 
-                backgroundImage.Source = new UriImageSource()
-                {
-                    Uri = new Uri(comics[currentComicIndex].ImageUrl)
-                };
-
-          
+                dateTimeAndBackgroundImage();
 
             }
+
             if (currentComicIndex.Equals(comics.Count() - 1))
             {
                 next.IsEnabled = false;
+
                 previous.IsEnabled = true;
             }
 
