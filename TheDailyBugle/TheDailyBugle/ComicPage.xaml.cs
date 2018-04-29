@@ -11,14 +11,6 @@ namespace TheDailyBugle
     public partial class ComicPage : ContentPage
     {
         private IComicParserService _comicParserService;
-        
-
-        public ComicPage(ComicTitle comicTitle)
-        {
-            InitializeComponent();
-
-            ComicImplementation(comicTitle);
-        }
 
         private int currentComicIndex { get; set; } // holds the index of the current comic that is being displayed
         private Comic wow { get; set; }
@@ -26,16 +18,17 @@ namespace TheDailyBugle
         private List<Comic> comics { get; set; }
         private DateTime dt { get; set; }
 
-       private void ComicImplementation(ComicTitle comicTitle)
+
+        public ComicPage(ComicTitle comicTitle)
         {
+            InitializeComponent();
+
             const int COMIC_COUNT = 5; // holds the number of comics that will be received.
             wow = new Comic();
 
             _comicParserService = new ComicParserService();
             comics = _comicParserService.GetComics(comicTitle.Url, COMIC_COUNT);
-            //dates = _comicParserService.GetComic(comic)
 
-            // initialize currentComicIndex with the first comic listed in comics list
             currentComicIndex = 0;
 
 
@@ -44,7 +37,6 @@ namespace TheDailyBugle
             next.IsEnabled = false;
 
             dateTimeAndBackgroundImage();
-
         }
 
         private void dateTimeAndBackgroundImage ()
@@ -83,12 +75,10 @@ namespace TheDailyBugle
                 previous.IsEnabled = false;
                 
             }
-
         }
 
         public void OnNextClicked(object sender, EventArgs args)
         {
-
             // code for next button click event
             if (currentComicIndex > 0)
             {
@@ -109,8 +99,6 @@ namespace TheDailyBugle
 
                 previous.IsEnabled = true;
             }
-
-
         }
 
         void DisplayTitles(object sender, EventArgs args)

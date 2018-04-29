@@ -17,7 +17,6 @@ namespace TheDailyBugle
 {
     public partial class TitlePage : ContentPage
 	{
-
         private readonly IEnumerable<ComicTitle> comicTitles;
         private ObservableCollection<ComicTitle> subscribedComicTitles;
 
@@ -29,7 +28,7 @@ namespace TheDailyBugle
             comicsTitles.IsVisible = false;
 
             List<Subscription> subscriptions;
-            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             {
                 source.Open();
 
@@ -48,7 +47,6 @@ namespace TheDailyBugle
                     .ToList();
 
                 // get subscribed comics
-
                 subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
                     .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
                     .Distinct());
@@ -75,7 +73,7 @@ namespace TheDailyBugle
             var button = sender as Button;
             var comicTitle = button.Parent.BindingContext as ComicTitle;
             
-            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             {
                 source.Open();
 
@@ -90,6 +88,9 @@ namespace TheDailyBugle
                 // remove from subscription list
                 subscribedComicTitles.Remove(comicTitle);
             }
+
+            comicsTitles.ItemsSource = comicTitles
+                .Where(ct => !subscribedComicTitles.Any(s => s.ComicTitleId == ct.ComicTitleId));
         }
 
         public void DisplayCommic(object sender, ItemTappedEventArgs e)
@@ -110,7 +111,7 @@ namespace TheDailyBugle
                 ComicTitleId = comicTitle.ComicTitleId
             };
 
-            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             {
                 // assign the subscriptionId to the primary key that will be returned
                 subscription.SubscriptionId = subscription.Insert(source);
@@ -157,7 +158,7 @@ namespace TheDailyBugle
 
         private List<Subscription> GetUserSubscriptions(int userId)
         {
-            using (IDbConnection source = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             {
                 source.Open();
                 var subscriptions = source.Query<Subscription>(
@@ -171,7 +172,7 @@ namespace TheDailyBugle
 
         private User CreateUser(string email)
         {
-            using (IDbConnection target = new SqlConnection("Server=tcp:thedailybugle.database.windows.net,1433;Initial Catalog=The Daily Bugle;Persist Security Info=False;User ID=dbadmin;Password=1231!#ASDF!a;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (IDbConnection target = new SqlConnection(Database.ConnectionString()))
             {
                 var user = new User
                 {

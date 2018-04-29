@@ -15,8 +15,7 @@ namespace TheDailyBugle
 		public App ()
 		{
 			InitializeComponent();
-
-            //MainPage = new TheDailyBugle.TitlePage();
+            
             MainPage = new NavigationPage(new TitlePage());
 		}
 
