@@ -4,24 +4,25 @@
              x:Class="TheDailyBugle.TitlePage">
     <ContentPage.Content>
         <StackLayout>
-
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+            <StackLayout Orientation="Horizontal">
                 <Button Text="&#x2630;"
-                x:Name="addComicsButton"
-                FontSize="Large"
-                BackgroundColor="DarkGray"
-                TextColor="White"
-                Clicked="OnSettingsClicked"/>
+                        x:Name="addComicsButton"
+                        FontSize="Large"
+                        BackgroundColor="DarkGray"
+                        TextColor="White"
+                        Clicked="OnSettingsClicked"/>
 
-                <Label x:Name="titleLabel" Text="The Daily Bugle"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="StartAndExpand" />
-                <Label x:Name="userLabel" Text=""
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="EndAndExpand" />
+                <Label x:Name="titleLabel" 
+                       Text="The Daily Bugle"
+                       FontSize="Large"
+                       TextColor="Red"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="End"
+                       HorizontalTextAlignment="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Start">
                 <Button Text="&#x2714; Done"
                      x:Name="hideComicsButton"
                      FontSize="Medium"
@@ -29,23 +30,42 @@
                       TextColor="White"
                      Clicked="OnToggleSettings"/>
             </StackLayout>
-            
-            <ListView x:Name="comicsTitles" ItemTapped="OnUnsubbedComicTapped">
+
+            <ListView x:Name="comicsTitles" 
+                      ItemTapped="OnUnsubbedComicTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Name}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView x:Name="subscribredComicTitles" ItemTapped="DisplayCommic">
+
+            <ListView x:Name="subscribredComicTitles" 
+                      ItemTapped="DisplayCommic" 
+                      SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                                <Image Source="{Binding IconUrl}" />
-                                <Label Text="{Binding Name}" VerticalTextAlignment="End" FontSize="Medium" />
-                                <Button Text="&#x274C;" BackgroundColor="White" HorizontalOptions="End" Command="{Binding ComicTitleId}" CommandParameter="{Binding .}" Clicked="OnDeleteClicked" />
-                            </StackLayout>
+                            <ContentView Padding="5">
+                                <Frame OutlineColor="Accent"
+                                        Padding="10">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding IconUrl}" 
+                                               HorizontalOptions="Start" />
+                                        <Label Text="{Binding Name}" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               VerticalTextAlignment="Center"
+                                               HorizontalTextAlignment="Start"
+                                               FontSize="Medium" />
+                                        <Button Text="&#x274C;" 
+                                                HorizontalOptions="End" 
+                                                BackgroundColor="White" 
+                                                Command="{Binding ComicTitleId}" 
+                                                CommandParameter="{Binding .}" 
+                                                Clicked="OnDeleteClicked" />
+                                    </StackLayout>
+                                </Frame>
+                            </ContentView>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
