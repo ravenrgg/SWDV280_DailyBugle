@@ -158,32 +158,16 @@ namespace TheDailyBugle
 
         private List<Subscription> GetUserSubscriptions(int userId)
         {
-            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
-            {
-                source.Open();
-                var subscriptions = source.Query<Subscription>(
-                    Subscription.Select())
-                    .Where(s => s.UserId.Equals(userId))
-                    .ToList();
 
-                return subscriptions;
-            }
+            return new List<Subscription>();
         }
 
         private User CreateUser(string email)
         {
-            using (IDbConnection target = new SqlConnection(Database.ConnectionString()))
+            return new User
             {
-                var user = new User
-                {
-                    Email = email
-                };
-
-                target.Open();
-                user.Insert(target);
-
-                return user;
-            }
+                Email = "test@test.com"
+            };
         }
     }
 }
