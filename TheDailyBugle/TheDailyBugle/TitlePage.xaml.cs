@@ -16,42 +16,47 @@ using System.Collections.ObjectModel;
 namespace TheDailyBugle
 {
     public partial class TitlePage : ContentPage
-	{
+    {
         private readonly IEnumerable<ComicTitle> comicTitles;
         private ObservableCollection<ComicTitle> subscribedComicTitles;
 
-        public TitlePage ()
-		{
-			InitializeComponent ();
+        public TitlePage()
+        {
+            InitializeComponent();
 
             hideComicsButton.IsVisible = false;
             comicsTitles.IsVisible = false;
 
             List<Subscription> subscriptions;
-            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
-            {
-                source.Open();
+            //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
+            //{
 
-                // get user subscriptions
-                subscriptions = source.Query<Subscription>(
-                    Subscription.Select())
-                    .Where(s => s.UserId.Equals(8) && s.IsActive)
-                    .Distinct()
-                    .ToList();
+            ////    //source.Open();
 
-                // get all comics
-                comicTitles = source.Query<ComicTitle>(
-                    ComicTitle.Select())
-                    .Distinct()
-                    .OrderBy(ct => ct.Name)
-                    .ToList();
+            ////    //// get user subscriptions
+            ////    //subscriptions = source.Query<Subscription>(
+            ////    //    Subscription.Select())
+            ////    //    .Where(s => s.UserId.Equals(8) && s.IsActive)
+            ////    //    .Distinct()
+            ////    //    .ToList();
 
-                // get subscribed comics
-                subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
-                    .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
-                    .Distinct());
-            }
-            
+            ////    //// get all comics
+            ////    //comicTitles = source.Query<ComicTitle>(
+            ////    //    ComicTitle.Select())
+            ////    //    .Distinct()
+            ////    //    .OrderBy(ct => ct.Name)
+            ////    //    .ToList();
+
+            ////    //// get subscribed comics
+            ////    //subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
+            ////    //    .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
+            ////    //    .Distinct());
+            //}
+            comicTitles = new List<ComicTitle>();
+            subscribedComicTitles = new ObservableCollection<ComicTitle>();
+
+
+
             UpdateDataBinding();
         }
 
@@ -72,22 +77,24 @@ namespace TheDailyBugle
         {
             var button = sender as Button;
             var comicTitle = button.Parent.BindingContext as ComicTitle;
-            
-            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
-            {
-                source.Open();
 
-                var subscription = source.Query<Subscription>(Subscription.Select())
-                    .FirstOrDefault(s => s.ComicTitleId.Equals(comicTitle.ComicTitleId) &&
-                                         s.UserId.Equals(8) &&
-                                         s.IsActive);
+            //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
+            //{
+            ////    //    source.Open();
 
-                // delete the subscription
-                subscription.Update(source, false);
+            ////    //    var subscription = source.Query<Subscription>(Subscription.Select())
+            ////    //        .FirstOrDefault(s => s.ComicTitleId.Equals(comicTitle.ComicTitleId) &&
+            ////    //                             s.UserId.Equals(8) &&
+            ////    //                             s.IsActive);
 
-                // remove from subscription list
-                subscribedComicTitles.Remove(comicTitle);
-            }
+            ////    //    // delete the subscription
+            ////    //    subscription.Update(source, false);
+
+            ////    //    // remove from subscription list
+            ////    //    subscribedComicTitles.Remove(comicTitle);
+            //}
+            //comicTitles = new List<ComicTitle>();
+            subscribedComicTitles = new ObservableCollection<ComicTitle>();
 
             comicsTitles.ItemsSource = comicTitles
                 .Where(ct => !subscribedComicTitles.Any(s => s.ComicTitleId == ct.ComicTitleId));
@@ -102,7 +109,7 @@ namespace TheDailyBugle
 
         void OnUnsubbedComicTapped(object sender, ItemTappedEventArgs e)
         {
-            var comicTitle = e.Item as ComicTitle; 
+            var comicTitle = e.Item as ComicTitle;
 
             var subscription = new Subscription
             {
@@ -111,14 +118,14 @@ namespace TheDailyBugle
                 ComicTitleId = comicTitle.ComicTitleId
             };
 
-            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
-            {
-                // assign the subscriptionId to the primary key that will be returned
-                subscription.SubscriptionId = subscription.Insert(source);
-            }
+            //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
+            //{
+            //    // assign the subscriptionId to the primary key that will be returned
+            //    //subscription.SubscriptionId = subscription.Insert(source);
+            //}
 
             ((ListView)sender).SelectedItem = null; // de-select the row
-            
+
             var newTitle = comicTitles
                 .FirstOrDefault(ct => ct.ComicTitleId.Equals(subscription.ComicTitleId));
 
@@ -126,7 +133,7 @@ namespace TheDailyBugle
             UpdateDataBinding();
 
             Device.BeginInvokeOnMainThread(() => {
-                DisplayAlert("Success", $"{newTitle.Name} has been added!" , "OK");
+                DisplayAlert("Success", $"{newTitle.Name} has been added!", "OK");
             });
         }
 
@@ -158,32 +165,36 @@ namespace TheDailyBugle
 
         private List<Subscription> GetUserSubscriptions(int userId)
         {
-            using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
-            {
-                source.Open();
-                var subscriptions = source.Query<Subscription>(
-                    Subscription.Select())
-                    .Where(s => s.UserId.Equals(userId))
-                    .ToList();
+            //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
+            //{
+            //  //  source.Open();
+            //  //  var subscriptions = source.Query<Subscription>(
+            //   //     Subscription.Select())
+            //   //     .Where(s => s.UserId.Equals(userId))
+            //    //    .ToList();
 
-                return subscriptions;
-            }
+            //    return new List<Subscription>();
+            //}
+            return new List<Subscription>();
         }
 
         private User CreateUser(string email)
         {
-            using (IDbConnection target = new SqlConnection(Database.ConnectionString()))
+            // using (IDbConnection target = new SqlConnection(Database.ConnectionString()))
+            // {
+            ////     var user = new User
+            ////     {
+            // //        Email = email
+            //     };
+
+            //  target.Open();
+            //  user.Insert(target);
+
+            return new User
             {
-                var user = new User
-                {
-                    Email = email
-                };
-
-                target.Open();
-                user.Insert(target);
-
-                return user;
-            }
+                Email = "test@test.com"
+            };
+            // }
         }
     }
 }
