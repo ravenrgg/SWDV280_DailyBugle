@@ -10,13 +10,13 @@ namespace TheDailyBugle.Services
 {
     class ComicService : IComicService
     {
-        private string ROOT_URL = "https://www.arcamax.com/";
+        private string ROOT_URL = "https://www.arcamax.com";
 
         public List<Series> GetSeriesList()
         {
             List<Series> seriesList = new List<Series>();
             var web = new HtmlWeb();
-            HtmlDocument doc = web.Load(ROOT_URL + "comics/");
+            HtmlDocument doc = web.Load(ROOT_URL + "/comics/");
             HtmlNodeCollection allcomics = doc.DocumentNode.SelectNodes("//div[contains(@class,'comic-icon-cell')]");
             foreach (HtmlNode comic in allcomics)
             {
@@ -28,6 +28,13 @@ namespace TheDailyBugle.Services
                 });
             }
             return seriesList;
+        }
+
+        public string GetDailyStrip(Series series)
+        {
+            var web = new HtmlWeb();
+            HtmlDocument doc = web.Load(ROOT_URL + series.Url);
+            return ROOT_URL + doc.GetElementbyId("comic-zoom").Attributes[1].Value;
         }
     }
 }
