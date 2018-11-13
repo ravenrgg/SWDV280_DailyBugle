@@ -27,6 +27,11 @@ namespace TheDailyBugle
             hideComicsButton.IsVisible = false;
             comicsTitles.IsVisible = false;
 
+            ComicRepository repo = new ComicRepository();
+            repo.SaveSubscription(new Series { Title = "dumb title" });
+            repo.GetSubscriptionList();
+            repo.DeleteSubscription(new Series { Title = "dumb title" });
+
             List<Subscription> subscriptions;
             //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             //{
