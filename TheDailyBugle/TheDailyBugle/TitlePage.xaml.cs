@@ -19,6 +19,7 @@ namespace TheDailyBugle
     {
         private readonly IEnumerable<ComicTitle> comicTitles;
         private ObservableCollection<ComicTitle> subscribedComicTitles;
+        private IComicParserService _comicParser;
 
         public TitlePage()
         {
@@ -26,11 +27,12 @@ namespace TheDailyBugle
 
             hideComicsButton.IsVisible = false;
             comicsTitles.IsVisible = false;
+            _comicParser = new ComicParserService();
 
-            ComicRepository repo = new ComicRepository();
-            repo.SaveSubscription(new Series { Title = "dumb title" });
-            repo.GetSubscriptionList();
-            repo.DeleteSubscription(new Series { Title = "dumb title" });
+            //ComicRepository repo = new ComicRepository();
+            //repo.SaveSubscription(_comicParser.GetComicTitles()[0]);
+            //repo.GetSubscriptionList();
+            //repo.DeleteSubscription(_comicParser.GetComicTitles()[0]);
 
             List<Subscription> subscriptions;
             //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
