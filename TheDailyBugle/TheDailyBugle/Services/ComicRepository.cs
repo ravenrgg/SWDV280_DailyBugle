@@ -13,15 +13,8 @@ namespace TheDailyBugle.Services
         public void DeleteSubscription(Series series)
         {
             List<Series> currentSeries = GetSubscriptionList();
-            if (currentSeries.Contains(series))
-            {
-                currentSeries.Remove(series);
-                Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSeries;
-            }
-            else
-            {
-                // DO NOTHING!!!!!!!!
-            }
+            currentSeries.RemoveAll(x => x.Title == series.Title);
+            Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSeries;
         }
 
         public List<Series> GetSubscriptionList()
@@ -44,7 +37,8 @@ namespace TheDailyBugle.Services
                     currentSubscriptions.Add(series);
                     Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSubscriptions;
                 }
-            } else
+            }
+            else
             {
                 Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = "";
                 SaveSubscription(series);
