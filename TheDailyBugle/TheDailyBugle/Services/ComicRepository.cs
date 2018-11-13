@@ -10,12 +10,12 @@ namespace TheDailyBugle.Services
     {
         private string SUBSCRIPTION_PROPERTY_STRING = "Subscriptions";
 
-        public void DeleteSubscription(Series series)
+        public void DeleteSubscription(ComicTitle comicTitle)
         {
-            List<Series> currentSeries = GetSubscriptionList();
-            if (currentSeries.Contains(series))
+            List<ComicTitle> currentSeries = GetSubscriptionList();
+            if (currentSeries.Contains(comicTitle))
             {
-                currentSeries.Remove(series);
+                currentSeries.Remove(comicTitle);
                 Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSeries;
             }
             else
@@ -24,30 +24,30 @@ namespace TheDailyBugle.Services
             }
         }
 
-        public List<Series> GetSubscriptionList()
+        public List<ComicTitle> GetSubscriptionList()
         {
-            return Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] as List<Series>;
+            return Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] as List<ComicTitle>;
         }
 
-        public void SaveSubscription(Series series)
+        public void SaveSubscription(ComicTitle comicTitle)
         {
             if (Application.Current.Properties.ContainsKey(SUBSCRIPTION_PROPERTY_STRING))
             {
-                List<Series> currentSubscriptions = GetSubscriptionList();
-                if (currentSubscriptions == null) currentSubscriptions = new List<Series>();
-                if (currentSubscriptions.Contains(series))
+                List<ComicTitle> currentSubscriptions = GetSubscriptionList();
+                if (currentSubscriptions == null) currentSubscriptions = new List<ComicTitle>();
+                if (currentSubscriptions.Contains(comicTitle))
                 {
                     // alert whatchu talkin about willis?
                 }
                 else
                 {
-                    currentSubscriptions.Add(series);
+                    currentSubscriptions.Add(comicTitle);
                     Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSubscriptions;
                 }
             } else
             {
                 Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = "";
-                SaveSubscription(series);
+                SaveSubscription(comicTitle);
             }
         }
     }
