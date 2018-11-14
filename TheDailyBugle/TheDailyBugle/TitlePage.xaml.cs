@@ -25,33 +25,30 @@ namespace TheDailyBugle
         {
             InitializeComponent();
 
+            ComicRepository cr = new ComicRepository();
+            List<ComicTitle> subscriptions;
+
             hideComicsButton.IsVisible = false;
             comicsTitles.IsVisible = false;
             _comicParser = new ComicParserService();
             _comicParser.GetComicTitles();
-            ComicRepository cr = new ComicRepository();
-
-            List<Subscription> subscriptions;
-            //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
-            //{
-
-            ////    //source.Open();
 
             // get user subscriptions
-            subscriptions = null;
-
+            subscriptions = cr.GetSubscriptionList();
             // get all comics
             comicTitles = _comicParser.GetComicTitles();
-
+            if(comicTitles == null)
+            {
+                comicTitles = new List<ComicTitle>();
+            }
+            if(subscriptions == null)
+            {
+                subscriptions = new List<ComicTitle>();
+            }
             // get subscribed comics
-            //subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
-            //    .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
-            //    .Distinct());
-            //}
-            subscribedComicTitles = new ObservableCollection<ComicTitle>();
-
-
-
+            subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
+                .Where(ct => subscriptions.Any(s => s.Name == ct.Name))
+                .Distinct());
             UpdateDataBinding();
         }
 
@@ -112,7 +109,7 @@ namespace TheDailyBugle
                 IsActive = true,
                 ComicTitleId = comicTitle.ComicTitleId
             };
-            
+
 
             //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             //{
@@ -128,7 +125,8 @@ namespace TheDailyBugle
             subscribedComicTitles.Add(newTitle);
             UpdateDataBinding();
 
-            Device.BeginInvokeOnMainThread(() => {
+            Device.BeginInvokeOnMainThread(() =>
+            {
                 DisplayAlert("Success", $"{newTitle.Name} has been added!", "OK");
             });
         }
