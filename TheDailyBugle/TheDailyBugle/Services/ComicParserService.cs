@@ -15,7 +15,7 @@ namespace TheDailyBugle.Services
             var document = GetPageDocument("http://www.gocomics.com/comics/a-to-z/");
 
             var links = document.DocumentNode.Descendants("a")
-                .Where(d => d.Attributes["class"].Value.Contains("amu-media-item-link") && !d.InnerText.Equals(null))
+                .Where(d => d.Attributes["class"].Value.Contains("gc-blended-link gc-blended-link--primary col-12 col-sm-6 col-lg-4") && !d.InnerText.Equals(null))
                 .ToList();
 
             var titles = new List<ComicTitle>();
@@ -38,7 +38,7 @@ namespace TheDailyBugle.Services
                     IconUrl = comicIconUrl
                 });
             }
-
+            GetComics("/ben/2018/11/13", 1);
             // Insert Into Database?
             return titles;
         }

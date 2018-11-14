@@ -28,11 +28,8 @@ namespace TheDailyBugle
             hideComicsButton.IsVisible = false;
             comicsTitles.IsVisible = false;
             _comicParser = new ComicParserService();
-
-            //ComicRepository repo = new ComicRepository();
-            //repo.SaveSubscription(_comicParser.GetComicTitles()[0]);
-            //repo.GetSubscriptionList();
-            //repo.DeleteSubscription(_comicParser.GetComicTitles()[0]);
+            _comicParser.GetComicTitles();
+            ComicRepository cr = new ComicRepository();
 
             List<Subscription> subscriptions;
             //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
@@ -40,26 +37,17 @@ namespace TheDailyBugle
 
             ////    //source.Open();
 
-            ////    //// get user subscriptions
-            ////    //subscriptions = source.Query<Subscription>(
-            ////    //    Subscription.Select())
-            ////    //    .Where(s => s.UserId.Equals(8) && s.IsActive)
-            ////    //    .Distinct()
-            ////    //    .ToList();
+            // get user subscriptions
+            subscriptions = null;
 
-            ////    //// get all comics
-            ////    //comicTitles = source.Query<ComicTitle>(
-            ////    //    ComicTitle.Select())
-            ////    //    .Distinct()
-            ////    //    .OrderBy(ct => ct.Name)
-            ////    //    .ToList();
+            // get all comics
+            comicTitles = _comicParser.GetComicTitles();
 
-            ////    //// get subscribed comics
-            ////    //subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
-            ////    //    .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
-            ////    //    .Distinct());
+            // get subscribed comics
+            //subscribedComicTitles = new ObservableCollection<ComicTitle>(comicTitles
+            //    .Where(ct => subscriptions.Any(s => s.ComicTitleId == ct.ComicTitleId))
+            //    .Distinct());
             //}
-            comicTitles = new List<ComicTitle>();
             subscribedComicTitles = new ObservableCollection<ComicTitle>();
 
 
@@ -124,6 +112,7 @@ namespace TheDailyBugle
                 IsActive = true,
                 ComicTitleId = comicTitle.ComicTitleId
             };
+            
 
             //using (IDbConnection source = new SqlConnection(Database.ConnectionString()))
             //{
