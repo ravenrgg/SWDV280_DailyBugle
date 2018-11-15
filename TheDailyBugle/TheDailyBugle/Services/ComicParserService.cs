@@ -38,7 +38,6 @@ namespace TheDailyBugle.Services
                     IconUrl = comicIconUrl
                 });
             }
-            GetComics("/ben/2018/11/13", 1);
             // Insert Into Database?
             return titles;
         }
