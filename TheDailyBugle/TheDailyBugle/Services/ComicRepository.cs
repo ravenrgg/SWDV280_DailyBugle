@@ -26,8 +26,8 @@ namespace TheDailyBugle.Services
 
         public List<ComicTitle> GetSubscriptionList()
         {
-            if (!Application.Current.Properties.ContainsKey(SUBSCRIPTION_PROPERTY_STRING))
-                Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = "";
+            //if (!Application.Current.Properties.ContainsKey(SUBSCRIPTION_PROPERTY_STRING))
+            //    Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = "";
             return Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] as List<ComicTitle>;
         }
 
