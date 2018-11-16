@@ -4,10 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheDailyBugle.Models;
 using HtmlAgilityPack;
-using Newtonsoft.Json;
-using TheDailyBugle.Resources;
-using Newtonsoft.Json.Linq;
-using System.Collections.ObjectModel;
 
 namespace TheDailyBugle.Services
 {
@@ -16,19 +12,34 @@ namespace TheDailyBugle.Services
 
         public List<ComicTitle> GetComicTitles()
         {
-            List<ComicTitle> comicTitles = new List<ComicTitle>();
-            var jobj = JArray.Parse(AllComicTitles.ALL_COMICS);
-            foreach (var child in jobj.Children())
-            {
-                comicTitles.Add(new ComicTitle
-                {
-                    Name = (string)child["Name"],
-                    Url = (string)child["Url"],
-                    IconUrl = (string)child["IconUrl"],
+            var document = GetPageDocument("http://www.gocomics.com/comics/a-to-z/");
 
+            var links = document.DocumentNode.Descendants("a")
+                .Where(d => d.Attributes["class"].Value.Contains("gc-blended-link gc-blended-link--primary col-12 col-sm-6 col-lg-4") && !d.InnerText.Equals(null))
+                .ToList();
+
+            var titles = new List<ComicTitle>();
+            foreach (HtmlNode link in links)
+            {
+                var comicName = link.SelectSingleNode(".//h4")
+                    .InnerText;
+
+                var comicUrl = link.Attributes["href"].Value;
+
+                var comicIconUrl = link.SelectNodes(".//img")
+                    .FirstOrDefault()
+                    .Attributes["src"]
+                    .Value;
+
+                titles.Add(new ComicTitle
+                {
+                    Name = comicName,
+                    Url = comicUrl,
+                    IconUrl = comicIconUrl
                 });
             }
-            return new List<ComicTitle>();
+            // Insert Into Database?
+            return titles;
         }
 
         public List<Comic> GetComics(string comicUrl, int count)
