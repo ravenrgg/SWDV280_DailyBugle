@@ -26,6 +26,7 @@ namespace TheDailyBugle.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Droid.Resource.String.library_name = global::TheDailyBugle.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::TheDailyBugle.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -4026,6 +4027,9 @@ namespace TheDailyBugle.Droid
 			
 			// aapt resource value: 0x7f090035
 			public const int character_counter_pattern = 2131296309;
+			
+			// aapt resource value: 0x7f09003c
+			public const int library_name = 2131296316;
 			
 			// aapt resource value: 0x7f090000
 			public const int mr_button_content_description = 2131296256;

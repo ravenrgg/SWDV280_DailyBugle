@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TheDailyBugle.Models;
@@ -16,19 +17,20 @@ namespace TheDailyBugle.Services
             if (currentSeries.Contains(comicTitle))
             {
                 currentSeries.Remove(comicTitle);
-                Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSeries;
+                Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = JsonConvert.SerializeObject(currentSeries);
             }
             else
             {
                 // DO NOTHING!!!!!!!!
             }
+            Application.Current.SavePropertiesAsync();
         }
 
         public List<ComicTitle> GetSubscriptionList()
         {
             if (!Application.Current.Properties.ContainsKey(SUBSCRIPTION_PROPERTY_STRING))
                 Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = "";
-            return Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] as List<ComicTitle>;
+            return JsonConvert.DeserializeObject<List<ComicTitle>>(Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] as string);
         }
 
         public void SaveSubscription(ComicTitle comicTitle)
@@ -44,7 +46,8 @@ namespace TheDailyBugle.Services
                 else
                 {
                     currentSubscriptions.Add(comicTitle);
-                    Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = currentSubscriptions;
+                    Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = JsonConvert.SerializeObject(currentSubscriptions);
+                    Application.Current.SavePropertiesAsync().Wait();
                 }
             }
             else
