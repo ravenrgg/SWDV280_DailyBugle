@@ -47,7 +47,7 @@ namespace TheDailyBugle.Services
                 {
                     currentSubscriptions.Add(comicTitle);
                     Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = JsonConvert.SerializeObject(currentSubscriptions);
-                    Application.Current.SavePropertiesAsync().Wait();
+                    Application.Current.SavePropertiesAsync();
                 }
             }
             else
