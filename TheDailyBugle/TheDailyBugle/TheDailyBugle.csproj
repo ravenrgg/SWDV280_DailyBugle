@@ -9,6 +9,7 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.8.10" />
     <PackageReference Include="HttpHelper" Version="0.9.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="SimpleStorage" Version="1.4.19" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
   </ItemGroup>
 
