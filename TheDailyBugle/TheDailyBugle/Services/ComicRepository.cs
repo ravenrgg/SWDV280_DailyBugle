@@ -7,9 +7,14 @@ using Xamarin.Forms;
 
 namespace TheDailyBugle.Services
 {
-    class ComicRepository
+    public class ComicRepository
     {
         private string SUBSCRIPTION_PROPERTY_STRING = "Subscriptions";
+
+        public void DeleteAllSubscriptions()
+        {
+            Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = "";
+        }
 
         public void DeleteSubscription(ComicTitle comicTitle)
         {
