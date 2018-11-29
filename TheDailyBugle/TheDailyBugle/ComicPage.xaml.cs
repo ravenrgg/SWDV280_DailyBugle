@@ -31,7 +31,6 @@ namespace TheDailyBugle
 
             currentComicIndex = 0;
 
-
             comicTitleLabel.Text = comicTitle.Name;
 
             next.IsEnabled = false;

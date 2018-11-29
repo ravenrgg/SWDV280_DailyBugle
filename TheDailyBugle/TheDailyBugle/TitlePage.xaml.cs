@@ -73,9 +73,11 @@ namespace TheDailyBugle
 
             comicsTitles.ItemsSource = comicTitles
                 .Where(ct => !subscribedComicTitles.Any(s => s.ComicTitleId == ct.ComicTitleId));
+
+            UpdateDataBinding();
         }
 
-        public void DisplayCommic(object sender, ItemTappedEventArgs e)
+        public void DisplayComic(object sender, ItemTappedEventArgs e)
         {
             //go to comic page
             var comicTitle = e.Item as ComicTitle;
