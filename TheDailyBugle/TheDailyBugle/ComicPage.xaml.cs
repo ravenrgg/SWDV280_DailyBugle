@@ -19,7 +19,7 @@ namespace TheDailyBugle
         private DateTime dt { get; set; }
 
 
-        public ComicPage(ComicTitle comicTitle)
+        public ComicPage(ComicTitle comicTitle, bool random)
         {
             InitializeComponent();
 
@@ -27,7 +27,7 @@ namespace TheDailyBugle
             wow = new Comic();
 
             _comicParserService = new ComicParserService();
-            comics = _comicParserService.GetComics(comicTitle.Url, COMIC_COUNT);
+            comics = _comicParserService.GetComics(comicTitle.Url, COMIC_COUNT, random);
 
             currentComicIndex = 0;
 
@@ -52,7 +52,7 @@ namespace TheDailyBugle
             }
             else
             {
-                DisplayAlert("Alert", "No Comics Avaliable", "ok");
+                DisplayAlert("Warning", "No Comics Avaliable", "OK");
             }
         }
 

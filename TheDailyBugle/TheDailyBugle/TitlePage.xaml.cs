@@ -81,7 +81,7 @@ namespace TheDailyBugle
         {
             //go to comic page
             var comicTitle = e.Item as ComicTitle;
-            Navigation.PushAsync(new ComicPage(comicTitle));
+            Navigation.PushAsync(new ComicPage(comicTitle, false));
         }
 
         void OnUnsubbedComicTapped(object sender, ItemTappedEventArgs e)
@@ -121,7 +121,7 @@ namespace TheDailyBugle
                 var randomIndex = random.Next(comicTitles.Count());
 
                 var comicTitle = comicTitles.ToList()[randomIndex];
-                await Navigation.PushAsync(new ComicPage(comicTitle));
+                await Navigation.PushAsync(new ComicPage(comicTitle, true));
             }
         }
 
