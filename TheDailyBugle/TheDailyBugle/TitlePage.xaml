@@ -41,7 +41,7 @@
             </ListView>
 
             <ListView x:Name="subscribredComicTitles" 
-                      ItemTapped="DisplayCommic" 
+                      ItemTapped="DisplayComic" 
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>

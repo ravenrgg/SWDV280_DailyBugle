@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheDailyBugle", "TheDailyBu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDailyBugle.Android", "TheDailyBugle\TheDailyBugle.Android\TheDailyBugle.Android.csproj", "{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}"
 EndProject
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDailyBugle.Test.UnitTests", "TheDailyBugle.Test.UnitTests\TheDailyBugle.Test.UnitTests.csproj", "{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1} = {0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}
@@ -18,6 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDailyBugle.Test.UnitTest
 		{462C6CF9-BA58-4F3A-94E7-05FAEED99ED5} = {462C6CF9-BA58-4F3A-94E7-05FAEED99ED5}
 	EndProjectSection
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -258,6 +260,8 @@ Global
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}.Release|x86.ActiveCfg = Release|Any CPU
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}.Release|x86.Build.0 = Release|Any CPU
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}.Release|x86.Deploy.0 = Release|Any CPU
+<<<<<<< HEAD
+=======
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
@@ -306,6 +310,7 @@ Global
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Release|x64.Build.0 = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Release|x86.ActiveCfg = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Release|x86.Build.0 = Release|Any CPU
+>>>>>>> master
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TheDailyBugle.Models;
 using Xamarin.Forms;
@@ -18,16 +19,7 @@ namespace TheDailyBugle.Services
 
         public void DeleteSubscription(ComicTitle comicTitle)
         {
-            List<ComicTitle> currentSeries = GetSubscriptionList();
-            if (currentSeries.Contains(comicTitle))
-            {
-                currentSeries.Remove(comicTitle);
-                Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = JsonConvert.SerializeObject(currentSeries);
-            }
-            else
-            {
-                // DO NOTHING!!!!!!!!
-            }
+            Application.Current.Properties[SUBSCRIPTION_PROPERTY_STRING] = JsonConvert.SerializeObject(GetSubscriptionList().Where(p => p.Name != comicTitle.Name));
             Application.Current.SavePropertiesAsync();
         }
 

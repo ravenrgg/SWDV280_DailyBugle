@@ -71,7 +71,7 @@ namespace TheDailyBugle.Services
             {
                 read = wc.OpenRead(Uri.EscapeUriString(documentUrl));
             }
-            catch (HtmlWebException e)
+            catch (HtmlWebException)
             {
                 wc = new CookieWebClient();
                 read = wc.OpenRead(documentUrl);
