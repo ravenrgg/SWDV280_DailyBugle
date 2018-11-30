@@ -39,15 +39,13 @@ namespace TheDailyBugle.Services
                 Comic comic;
 
                 var url = comicUrl.Remove(0, 1).Split('/')[0];
-                do
-                {
+
                     var comicDate = now.AddDays(daysToAdd);
                     comic = GetComic($"{"http://www.gocomics.com/"}/{url}", comicDate);
                     daysToAdd--;
 
-                } while (comic == null);
-
-                comics.Add(comic);
+                if (comic != null)
+                    comics.Add(comic);
             }
 
             return comics;

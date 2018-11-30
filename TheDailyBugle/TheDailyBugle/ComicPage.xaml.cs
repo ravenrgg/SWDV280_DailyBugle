@@ -40,17 +40,20 @@ namespace TheDailyBugle
 
         private void dateTimeAndBackgroundImage ()
         {
-
             //display comic
-            backgroundImage.Source = new UriImageSource()
+            if (comics.Count > 0) {
+                backgroundImage.Source = new UriImageSource()
+                {
+                    Uri = new Uri(comics[currentComicIndex].ImageUrl),
+                    CachingEnabled = true
+                };
+                //Gets date time and converts it to a different pattern
+                comicDateLabel.Text = comics[currentComicIndex].PublishDate.ToString("MM/dd");
+            }
+            else
             {
-                Uri = new Uri(comics[currentComicIndex].ImageUrl),
-                CachingEnabled = true
-            };
-
-            //Gets date time and converts it to a different pattern
-            comicDateLabel.Text = comics[currentComicIndex].PublishDate.ToString("MM/dd");
-
+                DisplayAlert("Alert", "No Comics Avaliable", "ok");
+            }
         }
 
         //Buttons Start
