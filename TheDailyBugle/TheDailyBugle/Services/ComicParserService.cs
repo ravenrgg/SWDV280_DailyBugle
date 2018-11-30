@@ -28,26 +28,45 @@ namespace TheDailyBugle.Services
             return comicTitles;
         }
 
-        public List<Comic> GetComics(string comicUrl, int count)
+        public List<Comic> GetComics(string comicUrl, int count, bool recursiveSearch)
         {
             var now = DateTime.Now;
 
             var comics = new List<Comic>();
             var daysToAdd = 0;
-            for (int i = 0; i < count; i++)
+            if (recursiveSearch)
             {
-                Comic comic;
-
-                var url = comicUrl.Remove(0, 1).Split('/')[0];
-                do
+                for (int i = 0; i < count; i++)
                 {
+                    Comic comic;
+
+                    var url = comicUrl.Remove(0, 1).Split('/')[0];
+                    do
+                    {
+                        var comicDate = now.AddDays(daysToAdd);
+                        comic = GetComic($"{"http://www.gocomics.com/"}/{url}", comicDate);
+                        daysToAdd--;
+
+                    } while (comic == null);
+
+                    comics.Add(comic);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    Comic comic;
+
+                    var url = comicUrl.Remove(0, 1).Split('/')[0];
+
                     var comicDate = now.AddDays(daysToAdd);
                     comic = GetComic($"{"http://www.gocomics.com/"}/{url}", comicDate);
                     daysToAdd--;
 
-                } while (comic == null);
-
-                comics.Add(comic);
+                    if (comic != null)
+                        comics.Add(comic);
+                }
             }
 
             return comics;

@@ -19,7 +19,7 @@ namespace TheDailyBugle
         private DateTime dt { get; set; }
 
 
-        public ComicPage(ComicTitle comicTitle)
+        public ComicPage(ComicTitle comicTitle, bool random)
         {
             InitializeComponent();
 
@@ -27,7 +27,7 @@ namespace TheDailyBugle
             wow = new Comic();
 
             _comicParserService = new ComicParserService();
-            comics = _comicParserService.GetComics(comicTitle.Url, COMIC_COUNT);
+            comics = _comicParserService.GetComics(comicTitle.Url, COMIC_COUNT, random);
 
             currentComicIndex = 0;
 
@@ -40,17 +40,20 @@ namespace TheDailyBugle
 
         private void dateTimeAndBackgroundImage ()
         {
-
             //display comic
-            backgroundImage.Source = new UriImageSource()
+            if (comics.Count > 0) {
+                backgroundImage.Source = new UriImageSource()
+                {
+                    Uri = new Uri(comics[currentComicIndex].ImageUrl),
+                    CachingEnabled = true
+                };
+                //Gets date time and converts it to a different pattern
+                comicDateLabel.Text = comics[currentComicIndex].PublishDate.ToString("MM/dd");
+            }
+            else
             {
-                Uri = new Uri(comics[currentComicIndex].ImageUrl),
-                CachingEnabled = true
-            };
-
-            //Gets date time and converts it to a different pattern
-            comicDateLabel.Text = comics[currentComicIndex].PublishDate.ToString("MM/dd");
-
+                DisplayAlert("Warning", "No Comics Avaliable", "OK");
+            }
         }
 
         //Buttons Start
