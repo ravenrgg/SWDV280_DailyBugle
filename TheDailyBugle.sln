@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
@@ -260,8 +260,6 @@ Global
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}.Release|x86.ActiveCfg = Release|Any CPU
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}.Release|x86.Build.0 = Release|Any CPU
 		{0BF4CA6A-E0F0-41B4-8F69-678384A0D3D1}.Release|x86.Deploy.0 = Release|Any CPU
-<<<<<<< HEAD
-=======
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
@@ -310,7 +308,6 @@ Global
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Release|x64.Build.0 = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Release|x86.ActiveCfg = Release|Any CPU
 		{CDA27E69-F327-467F-B5C7-D3C60BDEB8A4}.Release|x86.Build.0 = Release|Any CPU
->>>>>>> master
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
